@@ -1,9 +1,11 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 public class Bill {
     private HashMap<Product, Integer> products;
     private float totalPrice;
+    private Semaphore s = new Semaphore(1, true);
 
     public Bill(HashMap<Product, Integer> list) {
         products = list;
@@ -13,6 +15,22 @@ public class Bill {
     public Bill() {
         products = new HashMap<>();
         totalPrice = 0;
+    }
+
+    public void lock() {
+        try {
+            s.acquire();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void unlock() {
+        try {
+            s.release();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private float computeTotalPrice() {

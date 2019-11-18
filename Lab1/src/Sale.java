@@ -7,7 +7,6 @@ public class Sale implements Runnable{
     private List<Bill> allSales;
     private List<Product> products;
     private List<Product> initialProducts;
-    private Timer timer;
     private CheckAmount checkAmount;
 
     public Sale(List<Product> prods) {
@@ -20,7 +19,7 @@ public class Sale implements Runnable{
             initialProducts.add(prod_copy);
         }
         checkAmount = new CheckAmount();
-        timer = new Timer();
+        Timer timer = new Timer();
         timer.schedule(checkAmount, 0, 20);
 
     }
@@ -41,7 +40,7 @@ public class Sale implements Runnable{
         }
     }
 
-    public void checkingAmount() {
+    void checkingAmount() {
         this.checkAmount.run();
     }
 
@@ -69,7 +68,8 @@ public class Sale implements Runnable{
         Random random = new Random();
         List<Integer> random_prods_pos = getProductsNumbersRandom();
         Bill bill = new Bill();
-        lock();
+        //lock();
+        bill.lock();
         for (Integer idx : random_prods_pos) {
             Product prod = products.get(idx);
             if (prod.getQuantity() > 0) {
@@ -92,7 +92,8 @@ public class Sale implements Runnable{
             allSales.add(bill);
             totalAmount += bill.getTotalPrice();
         }
-        unlock();
+        //unlock();
+        bill.unlock();
     }
 
     @Override
@@ -106,7 +107,6 @@ public class Sale implements Runnable{
 
     private class CheckAmount extends TimerTask {
         // abstract class that defines a task that can be scheduled to run periodically
-        // the overriden run method is implicitly evoked when a timer object schedules it to do so
 
         @Override
         public void run() { // the check operation on the bills

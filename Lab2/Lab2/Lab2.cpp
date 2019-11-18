@@ -10,28 +10,12 @@
 using namespace std;
 
 void addMatrices(int a[100][100], int b[100][100], int sum[100][100], int dim, int i, int j) {
-	/*for (int i = 0; i < dim; i++) {
-		for (int j = 0; j < dim; j++) {
-			sum[i][j] = a[i][j] + b[i][j];
-		}
-	}*/
+	
 	sum[i][j] = a[i][j] + b[i][j];
 }
 
 void multiplyMatrices(int a[100][100], int b[100][100], int rez[100][100], int dim, int i, int j) {
-	/*for (int i = 0; i < dim; i++) {
-		for (int j = 0; j < dim; j++) {
-			rez[i][j] = 0;
-		}
-	}
-	for (int i = 0; i < dim; i++) {
-		for (int j = 0; j < dim; j++)
-		{
-			for (int k = 0; k < dim; k++) {
-				rez[i][j] += a[i][k] * b[k][j];
-			}
-		}
-	}*/
+	
 	rez[i][j] = 0;
 	for (int k = 0; k < dim; k++) {
 		rez[i][j] += a[i][k] * b[k][j];
